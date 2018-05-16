@@ -1,15 +1,17 @@
 <?php
 
+/*
+ * cryptocurrency data query!!
+ */
+
 namespace Cryptocurrency\Services;
 
-use \Openclerk\Currencies\Currency;
-
-class HobonickelsExplorer extends AbstractCryptoCoinExplorerService {
-
-  function __construct() {
-    parent::__construct(new \Cryptocurrency\Hobonickels(), array(
-      "url" => "http://hbn.cryptocoinexplorer.com/api/",
-    ));
-  }
-
+class HobonickelsExplorer extends AbstractCryptoCoinExplorerService
+{
+    public function __construct()
+    {
+        parent::__construct(new \Cryptocurrency\Hobonickels(), [
+      'url' => 'http://hbn.cryptocoinexplorer.com/api/',
+    ]);
+    }
 }

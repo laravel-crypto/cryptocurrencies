@@ -1,73 +1,83 @@
 <?php
 
+/*
+ * cryptocurrency data query!!
+ */
+
 namespace Cryptocurrency;
 
-use \Monolog\Logger;
-use \Openclerk\Currencies\Cryptocurrency;
-use \Openclerk\Currencies\BlockCurrency;
-use \Openclerk\Currencies\BlockBalanceableCurrency;
-use \Openclerk\Currencies\DifficultyCurrency;
-use \Openclerk\Currencies\ConfirmableCurrency;
-use \Openclerk\Currencies\ReceivedCurrency;
-use \Openclerk\Currencies\HashableCurrency;
+use Monolog\Logger;
+use Openclerk\Currencies\Cryptocurrency;
 
 /**
  * Represents the Ethereum cryptocurrency.
  */
-class Ethereum extends Cryptocurrency {
-
-  function getCode() {
-    return "eth";
-  }
-
-  function getName() {
-    return "Ethereum";
-  }
-
-  function getURL() {
-    return "https://www.ethereum.org/";
-  }
-
-  function getCommunityLinks() {
-    return array(
-      "http://twitter.com/ethereumproject" => "Ethereum Twitter",
-    );
-  }
-
-  function isValid($address) {
-    if (strlen($address) >= 40 && strlen($address) <= 45
-        && preg_match("#^0x[0-9a-f]+$#i", $address)) {
-      return true;
+class Ethereum extends Cryptocurrency
+{
+    public function getCode()
+    {
+        return 'eth';
     }
-    return false;
-  }
 
-  function hasExplorer() {
-    return true;
-  }
+    public function getName()
+    {
+        return 'Ethereum';
+    }
 
-  function getService() {
-    return new Services\EtherscanIo();
-  }
+    public function getURL()
+    {
+        return 'https://www.ethereum.org/';
+    }
 
-  function getExplorerName() {
-    return "Etherscan.io";
-  }
+    public function getCommunityLinks()
+    {
+        return [
+      'http://twitter.com/ethereumproject' => 'Ethereum Twitter',
+    ];
+    }
 
-  function getExplorerURL() {
-    return "https://etherscan.io";
-  }
+    public function isValid($address)
+    {
+        if (strlen($address) >= 40 && strlen($address) <= 45
+        && preg_match('#^0x[0-9a-f]+$#i', $address)) {
+            return true;
+        }
 
-  function getBalanceURL($address) {
-    return "https://etherscan.io/address/" . $address;
-  }
+        return false;
+    }
 
-  /**
-   * @throws {@link BalanceException} if something happened and the balance could not be obtained.
-   */
-  function getBalance($address, Logger $logger) {
-    $fetcher = $this->getService();
-    return $fetcher->getBalance($address, $logger);
-  }
+    public function hasExplorer()
+    {
+        return true;
+    }
 
+    public function getService()
+    {
+        return new Services\EtherscanIo();
+    }
+
+    public function getExplorerName()
+    {
+        return 'Etherscan.io';
+    }
+
+    public function getExplorerURL()
+    {
+        return 'https://etherscan.io';
+    }
+
+    public function getBalanceURL($address)
+    {
+        return 'https://etherscan.io/address/'.$address;
+    }
+
+    /**
+     * @throws {@link BalanceException} if something happened and the balance could not be obtained.
+     */
+    public function getBalance($address, Logger $logger)
+    {
+        $fetcher = $this->getService();
+
+        return $fetcher->getBalance($address, $logger);
+    }
 }

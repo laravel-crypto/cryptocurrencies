@@ -1,21 +1,23 @@
 <?php
 
-namespace Cryptocurrency\Services;
+/*
+ * cryptocurrency data query!!
+ */
 
-use \Openclerk\Config;
+namespace Cryptocurrency\Services;
 
 /**
  * Represents something that can fetch TerracoinExplorer statistics.
  *
  * TODO it may be possible to do confirmations
  */
-class TerracoinExplorer extends AbstractCoinplorerService {
-
-  function __construct() {
-    parent::__construct(new \Cryptocurrency\Terracoin(), array(
-      "url" => "https://coinplorer.com/TRC/Addresses/%s",
-      "info_url" => "https://coinplorer.com/TRC",
-    ));
-  }
-
+class TerracoinExplorer extends AbstractCoinplorerService
+{
+    public function __construct()
+    {
+        parent::__construct(new \Cryptocurrency\Terracoin(), [
+      'url' => 'https://coinplorer.com/TRC/Addresses/%s',
+      'info_url' => 'https://coinplorer.com/TRC',
+    ]);
+    }
 }

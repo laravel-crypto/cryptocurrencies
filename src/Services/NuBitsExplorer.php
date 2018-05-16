@@ -1,16 +1,18 @@
 <?php
 
+/*
+ * cryptocurrency data query!!
+ */
+
 namespace Cryptocurrency\Services;
 
-use \Openclerk\Currencies\Currency;
-
-class NuBitsExplorer extends AbstractNuExplorerService {
-
-  function __construct() {
-    parent::__construct(new \Cryptocurrency\NuBits(), array(
-      "url" => "https://blockexplorer.nu/api/addressInfo/%s",
-      "info_url" => "https://blockexplorer.nu/api/statusInfo/",
-    ));
-  }
-
+class NuBitsExplorer extends AbstractNuExplorerService
+{
+    public function __construct()
+    {
+        parent::__construct(new \Cryptocurrency\NuBits(), [
+      'url' => 'https://blockexplorer.nu/api/addressInfo/%s',
+      'info_url' => 'https://blockexplorer.nu/api/statusInfo/',
+    ]);
+    }
 }

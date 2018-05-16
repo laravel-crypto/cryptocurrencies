@@ -1,97 +1,116 @@
 <?php
 
+/*
+ * cryptocurrency data query!!
+ */
+
 namespace Cryptocurrency;
 
-use \Monolog\Logger;
-use \Openclerk\Currencies\Cryptocurrency;
-use \Openclerk\Currencies\BlockCurrency;
-use \Openclerk\Currencies\BlockBalanceableCurrency;
-use \Openclerk\Currencies\DifficultyCurrency;
-use \Openclerk\Currencies\ConfirmableCurrency;
-use \Openclerk\Currencies\ReceivedCurrency;
-use \Openclerk\Currencies\HashableCurrency;
+use Monolog\Logger;
+use Openclerk\Currencies\BlockCurrency;
+use Openclerk\Currencies\Cryptocurrency;
+use Openclerk\Currencies\ReceivedCurrency;
+use Openclerk\Currencies\DifficultyCurrency;
 
 /**
  * Represents the Blackcoin cryptocurrency.
  */
-class Blackcoin extends Cryptocurrency
-  implements BlockCurrency, DifficultyCurrency, ReceivedCurrency {
-
-  function getCode() {
-    return "bc1";
-  }
-
-  function getName() {
-    return "Blackcoin";
-  }
-
-  function getAbbr() {
-    return "BLK";
-  }
-
-  function getURL() {
-    return "http://www.blackcoin.co/";
-  }
-
-  function getCommunityLinks() {
-    return array(
-      "http://www.blackcoin.co/" => "What is Blackcoin?",
-    );
-  }
-
-  function isValid($address) {
-    // based on is_valid_btc_address
-    if (strlen($address) >= 27 && strlen($address) <= 34 && (substr($address, 0, 1) == "B")
-        && preg_match("#^[A-Za-z0-9]+$#", $address)) {
-      return true;
+class Blackcoin extends Cryptocurrency implements BlockCurrency, DifficultyCurrency, ReceivedCurrency
+{
+    public function getCode()
+    {
+        return 'bc1';
     }
-    return false;
-  }
 
-  function hasExplorer() {
-    return true;
-  }
+    public function getName()
+    {
+        return 'Blackcoin';
+    }
 
-  function getService() {
-    return new Services\BlackcoinExplorer();
-  }
+    public function getAbbr()
+    {
+        return 'BLK';
+    }
 
-  function getExplorerName() {
-    return $this->getService()->getExplorerName();
-  }
+    public function getURL()
+    {
+        return 'http://www.blackcoin.co/';
+    }
 
-  function getExplorerURL() {
-    return $this->getService()->getExplorerURL();
-  }
+    public function getCommunityLinks()
+    {
+        return [
+      'http://www.blackcoin.co/' => 'What is Blackcoin?',
+    ];
+    }
 
-  function getBalanceURL($address) {
-    return $this->getService()->getBalanceURL($address);
-  }
+    public function isValid($address)
+    {
+        // based on is_valid_btc_address
+        if (strlen($address) >= 27 && strlen($address) <= 34 && (substr($address, 0, 1) == 'B')
+        && preg_match('#^[A-Za-z0-9]+$#', $address)) {
+            return true;
+        }
 
-  /**
-   * @throws {@link BalanceException} if something happened and the balance could not be obtained.
-   */
-  function getBalance($address, Logger $logger) {
-    $fetcher = $this->getService();
-    return $fetcher->getBalance($address, $logger);
-  }
+        return false;
+    }
 
-  /**
-   * @throws {@link BalanceException} if something happened and the balance could not be obtained.
-   */
-  function getReceived($address, Logger $logger) {
-    $fetcher = $this->getService();
-    return $fetcher->getBalance($address, $logger, true);
-  }
+    public function hasExplorer()
+    {
+        return true;
+    }
 
-  function getBlockCount(Logger $logger) {
-    $fetcher = $this->getService();
-    return $fetcher->getBlockCount($logger);
-  }
+    public function getService()
+    {
+        return new Services\BlackcoinExplorer();
+    }
 
-  function getDifficulty(Logger $logger) {
-    $fetcher = $this->getService();
-    return $fetcher->getDifficulty($logger);
-  }
+    public function getExplorerName()
+    {
+        return $this->getService()->getExplorerName();
+    }
 
+    public function getExplorerURL()
+    {
+        return $this->getService()->getExplorerURL();
+    }
+
+    public function getBalanceURL($address)
+    {
+        return $this->getService()->getBalanceURL($address);
+    }
+
+    /**
+     * @throws {@link BalanceException} if something happened and the balance could not be obtained.
+     */
+    public function getBalance($address, Logger $logger)
+    {
+        $fetcher = $this->getService();
+
+        return $fetcher->getBalance($address, $logger);
+    }
+
+    /**
+     * @throws {@link BalanceException} if something happened and the balance could not be obtained.
+     */
+    public function getReceived($address, Logger $logger)
+    {
+        $fetcher = $this->getService();
+
+        return $fetcher->getBalance($address, $logger, true);
+    }
+
+    public function getBlockCount(Logger $logger)
+    {
+        $fetcher = $this->getService();
+
+        return $fetcher->getBlockCount($logger);
+    }
+
+    public function getDifficulty(Logger $logger)
+    {
+        $fetcher = $this->getService();
+
+        return $fetcher->getDifficulty($logger);
+    }
 }

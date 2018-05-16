@@ -1,11 +1,15 @@
 <?php
 
+/*
+ * cryptocurrency data query!!
+ */
+
 namespace Cryptocurrency\Tests;
 
-class CryptocurrencyComponentTest extends \ComponentTests\ComponentTest {
-
-  function getRoots() {
-    return array(__DIR__ . "/..");
-  }
-
+class CryptocurrencyComponentTest extends \ComponentTests\ComponentTest
+{
+    public function getRoots()
+    {
+        return [__DIR__.'/..'];
+    }
 }
